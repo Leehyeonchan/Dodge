@@ -25,13 +25,22 @@ public class playerControler : MonoBehaviour
     void Update()
     {
         // 수평축과 수직축의 입력값을 감지해서 저장
-        float xInput = Input.GetAxis("Horizontel");
+        float xInput = Input.GetAxis("Horizontal");
         //  키보드 : 'A', < - : 음의 방향 : -1 0f
         //  키보드 : 'D'  , ->: 양의 방향 : +1 0f
-        float zInput = Input.GetAxis("vertical");
+        float zInput = Input.GetAxis("Vertical");
         // 키보드 "W" , : ^ 양의 방향 : +1 , 0f
         // 키보드 : 'S' : (아래키) : 음의 방향 : -1 , 0f
 
+        // 실제 이동 속도를 입력값과
+        // 이동 속력은 사용해 결정
+        float xSpeed = xInput = speed;
+        float zSpeed = zInput = speed;
+
+        // Vector 3 속도를 (xSpeed,0f,zSpeed) 생성
+        Vector3 newVelocity = new Vector3(xSpeed, 0, zSpeed);
+        // 리지디바디의 속도에 newvelocity 할당
+        playerRigidbody.velocity = newVelocity;
     }
 
 
@@ -70,12 +79,12 @@ public class playerControler : MonoBehaviour
             playerRigidbody.AddForce(speed, 0f, 0f); // x, y,z  를 뜻함
         }
     }
+    
+    
 
 
 
-
-
-    void Die()
+    public void Die()
     {
         my.SetActive(false);
         gameObject.SetActive(false);
